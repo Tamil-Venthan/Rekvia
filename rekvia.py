@@ -7,18 +7,12 @@ import webbrowser
 from tkinter import filedialog, messagebox, scrolledtext
 from openpyxl.utils import get_column_letter
 
-# ==========================================
-# 0. USER CONFIGURATION (UPDATE LINKS HERE)
-# ==========================================
 CONTACT_LINKS = {
     "telegram": "https://t.me/tamilventhan4", 
     "linkedin": "https://www.linkedin.com/in/tamil-venthan4/",
     "github": "https://github.com/Tamil-Venthan"
 }
-
-# ==========================================
 # 1. SYSTEM CONFIGURATION & HELPERS
-# ==========================================
 try:
     pd.set_option('future.no_silent_downcasting', True)
 except Exception:
@@ -50,7 +44,7 @@ GSTR2B_COLUMN_ALIASES = {
 
 TOLERANCE = 2.0 
 
-# --- SAFETY FUNCTIONS ---
+# SAFETY FUNCTIONS
 def safe_float(value):
     if pd.isna(value): return 0.0
     s = str(value).strip().lower()
@@ -94,10 +88,7 @@ def smart_invoice_match(inv1, inv2):
     b_cl = re.sub(r'20\d{2}|2\d2\d', '', b)
     if a_cl == b_cl and len(a_cl) > 2: return True
     return False
-
-# ==========================================
 # 2. PROCESSING LOGIC
-# ==========================================
 def run_logic(file_books, file_2b, logger_func):
     logger_func("Loading Excel files...")
     try:
@@ -107,7 +98,7 @@ def run_logic(file_books, file_2b, logger_func):
         logger_func(f"ERROR: File corrupted or protected.\nDetail: {e}")
         return
 
-    # --- MAP COLUMNS ---
+    # MAP COLUMNS
     logger_func("Mapping columns...")
     COLS_BOOKS = {}
     missing_cols_books = []
@@ -129,7 +120,7 @@ def run_logic(file_books, file_2b, logger_func):
 
     logger_func("Cleaning & Normalizing Data...")
     
-    # --- PROCESSING BOOKS ---
+    # PROCESSING BOOKS
     df_books['Clean_GSTIN'] = df_books[COLS_BOOKS['gstin']].apply(lambda x: str(x).strip().upper())
     df_books['Clean_Inv'] = df_books[COLS_BOOKS['inv_no']].apply(normalize)
     df_books['GSTIN_Valid'] = df_books['Clean_GSTIN'].apply(validate_gstin)
@@ -149,7 +140,7 @@ def run_logic(file_books, file_2b, logger_func):
     )
     df_books['Tax_Round'] = df_books['Total_Tax'].round(0)
 
-    # --- PROCESSING 2B ---
+    # PROCESSING 2B
     df_2b['Clean_GSTIN'] = df_2b[COLS_2B['gstin']].apply(lambda x: str(x).strip().upper())
     df_2b['Clean_Inv'] = df_2b[COLS_2B['inv_no']].apply(normalize)
     
@@ -318,9 +309,7 @@ def run_logic(file_books, file_2b, logger_func):
         logger_func(f"\nERROR: Please close '{output_filename}' and try again.")
         return None
 
-# ==========================================
 # 3. GUI CLASS
-# ==========================================
 class GSTApp:
     def __init__(self, root):
         self.root = root
