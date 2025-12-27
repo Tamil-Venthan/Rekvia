@@ -24,6 +24,26 @@ Python-based automation tool for GST Reconciliation
     3.  **Portal View:** What in the *GSTR2B* data.
 * **Compliance Ready:** Extracts **ITC Availability** and **Reverse Charge (RCM)** status directly from GSTR-2B.
 * **Risk Analysis:** Automatically tags unmatched invoices as **HIGH**, **MEDIUM**, or **LOW** risk based on value and status.
+## Try it with Sample Data (Test Drive)
+
+We have provided dummy data so you can test the logic immediately without using real files.
+
+1.  Download the **[samples](./samples)** folder from this repository.
+2.  Run `Rekvia.exe`.
+3.  Select **`Sample_Purchase_Book.xlsx`** as the Books file.
+4.  Select **`Sample_GSTR2B.xlsx`** as the 2B file.
+5.  Click **Start Reconciliation**.
+
+### What to look for in the Result:
+
+Open the generated `Rekvia_Reconciliation_Report.xlsx` to see how Rekvia handles these specific scenarios included in the sample files:
+
+| Invoice No. | Scenario | Result in Rekvia | Why? |
+| :--- | :--- | :--- | :--- |
+| **AB/2024/056** | **Fuzzy Match** | ✅ `Matched (Smart)` | Books used `/` but Portal used `-`. Rekvia detected they are the same invoice. |
+| **INV-101** | **Split Entry** | ⚠️ `Mismatch in Value` | Books has two entries (50k + 30k) but Portal has one (80k). Rekvia alerts you to check this. |
+| **INV-DEL-88** | **Missing** | 🔴 `Missing in GSTR-2B` | Invoice exists in Books but NOT in Portal. Flagged as **HIGH RISK**. |
+| **INV-001** | **RCM Check** | 📝 `RCM: Yes` | Rekvia successfully pulled the "Yes" status from the GSTR-2B file. |
 
 ## Understanding the Report
 
