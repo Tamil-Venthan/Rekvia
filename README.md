@@ -24,6 +24,47 @@ Python-based automation tool for GST Reconciliation
     3.  **Portal View:** What in the *GSTR2B* data.
 * **Compliance Ready:** Extracts **ITC Availability** and **Reverse Charge (RCM)** status directly from GSTR-2B.
 * **Risk Analysis:** Automatically tags unmatched invoices as **HIGH**, **MEDIUM**, or **LOW** risk based on value and status.
+
+## Installation & Usage
+
+### Option 1: Run the Executable (No Python Required)
+1.  Go to the [Releases](https://github.com/Tamil-Venthan/Rekvia/releases) page.
+2.  Download `Rekvia.exe`.
+3.  Double-click to run.
+
+## Data Preparation Guide ( ⚠️ Imp step)
+
+To ensure Rekvia works perfectly, please follow these simple steps to prepare your Excel files.
+
+### 1️⃣ Preparing the Purchase Register (from Tally)
+If you are exporting data from Tally, follow this standard procedure:
+
+1.  **Open Ledger:** Go to the specific input ledger (e.g., *Input CGST* or *Input SGST*).
+2.  **Columnar View:** Press `F8` (Columnar) and ensure the following options are set to **"Yes"**:
+    * Show Party's Name
+    * Show Voucher Type
+    * Show Voucher Number
+    * Show Supplier Invoice/Reference Number
+    * Show Party's GSTIN/UIN
+3.  **Export:** Export the report to Excel.
+4.  **Clean the Data:**
+    * **Remove Journals:** Delete any "Journal" voucher rows; keep only "Purchase" entries.
+    * **Fix Negative Values:** Tally often exports Taxable Values as negative numbers (Credit balance). Convert these to **positive numbers** (e.g., use the `=ABS()` formula or multiply by -1).
+    * **Final Check:** Ensure your file has headers in the first row (GSTIN, Invoice No, Date, Value, Tax).
+
+### 2️⃣ Preparing the GSTR-2B (from GST Portal)
+1.  **Download:** Download the GSTR-2B Excel file from the GST Portal.
+2.  **Isolate B2B Data:** Open the file and move the **"B2B"** sheet to a new Excel file (or keep it as the only active sheet).
+3.  **Clean Headers (Crucial Step):**
+    * The portal file usually has 4-5 rows of metadata at the top. **Delete these rows.**
+    * Ensure the **Column Headers** are in **Row 1**.
+    * **Unmerge Headers:** If "Invoice Details" is a merged header above specific columns, delete it.
+    * **Standardize Names:** Ensure your headers look like this (single row):
+        * `Invoice Number`, `Invoice Date`, `Invoice Value(₹)`
+        * `Integrated Tax(₹)`, `Central Tax(₹)`, `State/UT Tax(₹)`
+4.  **Save:** Save the clean file.
+
+  
 ## Try it with Sample Data (Test Drive)
 
 We have provided dummy data so you can test the logic immediately without using real files.
@@ -60,13 +101,6 @@ The output file `Rekvia_Reconciliation_Report.xlsx` contains the following statu
 ### Privacy & Security
 * **100% Offline:** All processing happens locally on your machine. No financial data is uploaded to the cloud.
 * **No Installation Needed:** Runs directly as a portable `.exe` file.
-
-## Installation & Usage
-
-### Option 1: Run the Executable (No Python Required)
-1.  Go to the [Releases](https://github.com/Tamil-Venthan/Rekvia/releases) page.
-2.  Download `Rekvia.exe`.
-3.  Double-click to run.
 
 ### Option 2: Run from Source
 1.  Clone the repository:
