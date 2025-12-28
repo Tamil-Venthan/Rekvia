@@ -64,6 +64,11 @@ If you are exporting data from Tally, follow this standard procedure:
         * `Integrated Tax(₹)`, `Central Tax(₹)`, `State/UT Tax(₹)`
 4.  **Save:** Save the clean file.
 
+## How It Works
+1.  **Browse** your Purchase Register Excel file.
+2.  **Browse** your GSTR-2B Excel file.
+3.  Click **Start Reconciliation**.
+4.  The tool automatically generates a `Rekvia_Reconciliation_Report.xlsx` in the same folder.
   
 ## Try it with Sample Data (Test Drive)
 
@@ -105,7 +110,7 @@ The output file `Rekvia_Reconciliation_Report.xlsx` contains the following statu
 ### Option 2: Run from Source
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/Tamil-Venthan/Rekvia.git](https://github.com/Tamil-Venthan/Rekvia.git)
+    git clone https://github.com/Tamil-Venthan/Rekvia.git
     ```
 2.  Install dependencies:
     ```bash
@@ -115,12 +120,6 @@ The output file `Rekvia_Reconciliation_Report.xlsx` contains the following statu
     ```bash
     python rekvia.py
     ```
-
-## How It Works
-1.  **Browse** your Purchase Register Excel file.
-2.  **Browse** your GSTR-2B Excel file.
-3.  Click **Start Reconciliation**.
-4.  The tool automatically generates a `Rekvia_Reconciliation_Report.xlsx` in the same folder.
 
 ## Contact & Support
 Developed by **Tamil Venthan**.
