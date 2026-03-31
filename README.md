@@ -3,14 +3,19 @@ Python-based automation tool for GST Reconciliation
 
 **Rekvia** is a powerful, automated desktop tool designed for finance professionals to reconcile Purchase Registers with GSTR-2B files instantly.
 
-![Rekvia Status](https://img.shields.io/badge/Status-v1.0-brightgreen) ![Python](https://img.shields.io/badge/Built%20With-Python-blue) ![License](https://img.shields.io/badge/License-MIT-green)
+![Rekvia Status](https://img.shields.io/badge/Status-v1.2-brightgreen) ![Python](https://img.shields.io/badge/Built%20With-Python-blue) ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## Key Features
 
+### Beautiful Modern Interface
+* **CustomTkinter GUI:** A sleek, fully featured desktop application interface replacing out-dated standard terminal prompts.
+* **Dynamic Configuration Panel:** An embedded ⚙️ Settings panel allows you to customize Vendor/Invoice column aliases and tweak mathematical tolerances on-the-fly without ever touching code.
+* **Over-The-Air (OTA) Updater:** Rekvia now features a stealth background updater! It automatically pings GitHub releases on startup and seamlessly patches your `.exe` file so you always have the latest tax logic.
+
 ### Intelligent Matching Engine
-* **Fuzzy Logic Matching:** Uses advanced algorithms to match invoices even if there are minor spelling differences (e.g., "TATA SONS" vs "TATA SONS LTD").
-* **Smart Tolerance:** Automatically handles small tax differences (default tolerance: ±₹2.00) to avoid false mismatches.
-* **Duplicate Prevention:** Ensures one-to-one matching so a single invoice isn't used twice.
+* **Fuzzy Logic Matching:** Uses advanced algorithms to match invoices even if there are minor spelling differences (e.g., "TATA SONS" vs "TATA SONS LTD" or `(1,250.00)` vs `-1250`).
+* **Smart Tolerance Boundaries:** Safely isolates floating-point differences (configurable via the UI, default tolerance: ±₹2.00) to bridge fractional tax gaps.
+* **Strict 1-to-1 Duplicate Prevention:** Explicit sequence identifiers prevent identical duplicate invoices from falsely generating a Cartesian product, keeping your books absolutely accurate.
 
 ### Robust Data Safety
 * **Crash-Proof Processing:** Automatically fixes common Excel errors like "Text stored as numbers" (e.g., `1,25,000` becomes `125000.0`).
@@ -30,7 +35,31 @@ Python-based automation tool for GST Reconciliation
 ### Option 1: Run the Executable (No Python Required)
 1.  Go to the [Releases](https://github.com/Tamil-Venthan/Rekvia/releases) page.
 2.  Download `Rekvia.exe`.
-3.  Double-click to run.
+3.  Double-click to run! If an OTA update is available later, the app will auto-patch itself.
+
+### Option 2: Run from Source
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/Tamil-Venthan/Rekvia.git
+    cd Rekvia
+    ```
+2.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Run the application:
+    ```bash
+    python main.py
+    ```
+
+### Option 3: Compile your own `.exe`
+We have included a customized `PyInstaller` build script that automatically packs your UI assets!
+1. (Optional) Place an `icon.ico` file in the root folder to customize your logo.
+2. Run the compiler:
+    ```bash
+    python build.py
+    ```
+3. Your portable app will be instantly generated in `dist/Rekvia.exe`!
 
 ## Data Preparation Guide ( ⚠️ Imp step)
 
@@ -70,27 +99,6 @@ If you are exporting data from Tally, follow this standard procedure:
 3.  Click **Start Reconciliation**.
 4.  The tool automatically generates a `Rekvia_Reconciliation_Report.xlsx` in the same folder.
   
-## Try it with Sample Data (Test Drive)
-
-We have provided dummy data so you can test the logic immediately without using real files.
-
-1.  Download the **[samples](./samples)** folder from this repository.
-2.  Run `Rekvia.exe`.
-3.  Select **`Sample_Purchase_Book.xlsx`** as the Books file.
-4.  Select **`Sample_GSTR2B.xlsx`** as the 2B file.
-5.  Click **Start Reconciliation**.
-
-### What to look for in the Result:
-
-Open the generated `Rekvia_Reconciliation_Report.xlsx` to see how Rekvia handles these specific scenarios included in the sample files:
-
-| Invoice No. | Scenario | Result in Rekvia | Why? |
-| :--- | :--- | :--- | :--- |
-| **AB/2024/056** | **Fuzzy Match** | ✅ `Matched (Smart)` | Books used `/` but Portal used `-`. Rekvia detected they are the same invoice. |
-| **INV-101** | **Split Entry** | ⚠️ `Mismatch in Value` | Books has two entries (50k + 30k) but Portal has one (80k). Rekvia alerts you to check this. |
-| **INV-DEL-88** | **Missing** | 🔴 `Missing in GSTR-2B` | Invoice exists in Books but NOT in Portal. Flagged as **HIGH RISK**. |
-| **INV-001** | **RCM Check** | 📝 `RCM: Yes` | Rekvia successfully pulled the "Yes" status from the GSTR-2B file. |
-
 ## Understanding the Report
 
 The output file `Rekvia_Reconciliation_Report.xlsx` contains the following status flags:
@@ -104,22 +112,8 @@ The output file `Rekvia_Reconciliation_Report.xlsx` contains the following statu
 | **Not in Books** | Invoice is in Portal but NOT in Books. (Unclaimed ITC). | ⚪ LOW |
 
 ### Privacy & Security
-* **100% Offline:** All processing happens locally on your machine. No financial data is uploaded to the cloud.
+* **100% Offline Core:** The core file-processing engine operates locally on your machine. No financial or invoice data is ever uploaded to the cloud!
 * **No Installation Needed:** Runs directly as a portable `.exe` file.
-
-### Option 2: Run from Source
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/Tamil-Venthan/Rekvia.git
-    ```
-2.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-3.  Run the script:
-    ```bash
-    python rekvia.py
-    ```
 
 ## Contact & Support
 Developed by **Tamil Venthan**.
