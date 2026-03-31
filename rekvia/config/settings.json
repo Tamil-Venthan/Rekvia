@@ -1,0 +1,30 @@
+{
+    "BOOK_COLUMN_ALIASES": {
+        "gstin": ["GSTIN/UIN", "GSTIN", "GST Number", "Supplier GSTIN", "Tin No", "Party GSTIN"],
+        "inv_no": ["Voucher Ref. No.", "Invoice No", "Invoice Number", "Bill No", "Doc No", "Ref No"],
+        "date": ["Voucher Ref. Date", "Invoice Date", "Bill Date", "Doc Date", "Date"],
+        "tax_cgst": ["INPUT CGST", "CGST", "Central Tax", "CGST Amount", "CGST Amt"],
+        "tax_sgst": ["INPUT SGST", "SGST", "State/UT Tax", "SGST Amount", "SGST Amt"],
+        "tax_igst": ["INPUT IGST", "IGST", "Integrated Tax", "IGST Amount", "IGST Amt"],
+        "value": ["Value", "Taxable Value", "Taxable Amount", "Gross Value", "Net Amount"],
+        "vendor": ["Buyer/Supplier", "Party Name", "Supplier Name", "Vendor Name", "Trade Name", "Particulars"]
+    },
+    "GSTR2B_COLUMN_ALIASES": {
+        "gstin": ["GSTIN of supplier", "GSTIN", "Supplier GSTIN"],
+        "inv_no": ["Invoice number", "Invoice No", "Inv No"],
+        "date": ["Invoice Date", "Inv Date", "Date"],
+        "tax_cgst": ["Central Tax(₹)", "Central Tax", "CGST", "CGST(₹)"],
+        "tax_sgst": ["State/UT Tax(₹)", "State/UT Tax", "SGST", "SGST(₹)"],
+        "tax_igst": ["Integrated Tax(₹)", "Integrated Tax", "IGST", "IGST(₹)"],
+        "value": ["Taxable Value (₹)", "Taxable Value", "Taxable Amt"],
+        "vendor": ["Trade/Legal name", "Trade Name", "Legal Name", "Name"],
+        "itc": ["ITC Availability", "ITC Available", "Eligibility for ITC", "ITC Status"],
+        "rcm": ["Reverse Charge", "RCM", "Reverse Charge Mechanism"]
+    },
+    "TOLERANCE": 2.0,
+    "CONTACT_LINKS": {
+        "telegram": "https://t.me/tamilventhan4",
+        "linkedin": "https://www.linkedin.com/in/tamil-venthan4/",
+        "github": "https://github.com/Tamil-Venthan"
+    }
+}
